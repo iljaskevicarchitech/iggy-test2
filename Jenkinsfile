@@ -19,7 +19,7 @@ node {
 
   stage('Update Pod image on Kubernetes cluster') {
     /* sh "/usr/local/bin/kubectl create -f test-deployment.yml" */
-    sh "/usr/local/bin/kubectl set image deployment/${podName} nginx=${podName}:${newVersion}"
+    sh "/usr/local/bin/kubectl set image deployment/${podName} ${podName}=${imageName}:${newVersion}"
   }
 
   stage('Rollback approval'){
@@ -28,6 +28,6 @@ node {
 
   stage('Roll Back Pod image on Kubernetes cluster') {
     /* sh "/usr/local/bin/kubectl create -f test-deployment.yml" */
-    sh "/usr/local/bin/kubectl set image deployment/${podName} nginx=${podName}:${oldVersion}"
+    sh "/usr/local/bin/kubectl set image deployment/${podName} ${podName}=${imageName}:${oldVersion}"
   }
 }
