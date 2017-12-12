@@ -22,9 +22,6 @@ node {
     sh "/usr/local/bin/kubectl set image deployment/${podName} ${podName}=${imageName}:${newVersion}"
   }
 
-
-}
-
 post {
     always {
         stage('Rollback approval'){
@@ -40,3 +37,6 @@ post {
         /* mail to: team@example.com, subject: 'The Pipeline failed :('*/
     }
 }
+}
+
+
