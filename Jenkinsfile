@@ -21,24 +21,18 @@ node {
     /* sh "/usr/local/bin/kubectl create -f test-deployment.yml" */
     sh "/usr/local/bin/kubectl set image deployment/${podName} ${podName}=${imageName}:${newVersion}"
 
-    post {
-        always {
-            stage('Rollback approval'){
-              input "Roll back the Pod image?"
-            }
-
-            stage('Roll Back Pod image on Kubernetes cluster') {
-              /* sh "/usr/local/bin/kubectl create -f test-deployment.yml" */
-              sh "/usr/local/bin/kubectl set image deployment/${podName} ${podName}=${imageName}:${oldVersion}"
-            }
-        }
-        failure {
-            /* mail to: team@example.com, subject: 'The Pipeline failed :('*/
-        }
-    }
   }
 
+  currentBuild.result = 'SUCCESS'
 
+  stage('Rollback approval'){
+    input "Roll back the Pod image?"
+  }
+
+  stage('Roll Back Pod image on Kubernetes cluster') {
+    /* sh "/usr/local/bin/kubectl create -f test-deployment.yml" */
+    sh "/usr/local/bin/kubectl set image deployment/${podName} ${podName}=${imageName}:${oldVersion}"
+  }
 }
 
 
