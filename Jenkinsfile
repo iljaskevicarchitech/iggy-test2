@@ -1,5 +1,5 @@
 def podName = 'nginx-test'
-def imageName = "${podName}"
+def imageName = "nginx"
 
 node {
   stage 'Checkout'
