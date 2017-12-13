@@ -14,8 +14,8 @@ node {
   String gitShortId = sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
   String newLabel = newVersionConf + '.' + gitCommitNum + '-' + gitShortId
 
-  String oldQaVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/\${podName} --namespace=qa-env -o wide | awk '{ if (NR!=1) {print $8}}' | cut -d ':' -f 2").trim()
-  String oldProdVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/\${podName} --namespace=prod-env -o wide | awk '{ if (NR!=1) {print $8}}' | cut -d ':' -f 2").trim()
+  String oldQaVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/\${podName} --namespace=qa-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2").trim()
+  String oldProdVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/\${podName} --namespace=prod-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2").trim()
 
   stage('Dummy compile step') {
     sh "sleep 5"
