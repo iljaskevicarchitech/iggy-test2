@@ -4,8 +4,8 @@ def registryUrl = 'igortestacs.azurecr.io'
 def registryUser = 'igortestacs'
 def registryPass = 'wbc4thcq602BTdrJFZxF=sH36u3mroJC'
 
-podTemplate(name: 'testpod') {
-    node {
+podTemplate(label: 'testpod') {
+    node('testpod') {
         stage('Run shell') {
             sh 'echo hello world'
             sh 'sleep 5m'
