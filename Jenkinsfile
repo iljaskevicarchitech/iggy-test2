@@ -8,7 +8,7 @@ podTemplate(label: 'testpod') {
     node('testpod') {
         stage('Run shell') {
             sh 'echo hello world'
-            sh 'sleep 5m'
+            sh 'sleep 20s'
             sh 'echo Done!'
         }
     }
