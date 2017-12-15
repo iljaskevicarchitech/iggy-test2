@@ -1,8 +1,8 @@
-def podName = 'iggy-nginx-test'
-def imageName = 'iggy-test-img'
-def registryUrl = 'igortestacs.azurecr.io'
-def registryUser = 'igortestacs'
-def registryPass = 'wbc4thcq602BTdrJFZxF=sH36u3mroJC'
+String podName = 'iggy-nginx-test'
+String imageName = 'iggy-test-img'
+String registryUrl = 'igortestacs.azurecr.io'
+String registryUser = 'igortestacs'
+String registryPass = 'wbc4thcq602BTdrJFZxF=sH36u3mroJC'
 
 podTemplate(label: 'testpod') {
     node('testpod') {
@@ -25,8 +25,8 @@ node {
   String gitShortId = sh(returnStdout: true, script: "git rev-parse --short HEAD").trim()
   String newLabel = newVersionConf + '.' + gitCommitNum + '-' + gitShortId
 
-  String oldQaVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/\${podName} --namespace=qa-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2").trim()
-  String oldProdVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/\${podName} --namespace=prod-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2").trim()
+  String oldQaVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/${podName} --namespace=qa-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2").trim()
+  String oldProdVersion = sh(returnStdout: true, script: "/usr/local/bin/kubectl get deployment/${podName} --namespace=prod-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2").trim()
 
   stage('Dummy compile step') {
     sh "sleep 5"
